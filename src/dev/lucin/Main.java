@@ -2,16 +2,10 @@ package dev.lucin;
 
 import dev.lucin.domain.Card;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Card> deck = Card.getStandardDeck();
-        Card.printDeck(deck);
-
         Card[] cardArray = new Card[13];
         Card aceOfHearts = Card.getFaceCard(Card.Suit.HEART, 'A');
         Arrays.fill(cardArray, aceOfHearts);
@@ -36,5 +30,38 @@ public class Main {
 
         Collections.copy(cards, kingsOfClubs);
         Card.printDeck(cards, "Card Collection With Kings Copied", 1);
+
+        List<Card> deck = Card.getStandardDeck();
+        Card.printDeck(deck);
+
+        Collections.shuffle(deck);
+        Card.printDeck(deck, "Shuffled Deck", 4);
+
+        Collections.reverse(deck);
+        Card.printDeck(deck, "Reversed Card of Decks", 4);
+
+        var sortingAlgorithm = Comparator.comparing(Card::rank)
+                .thenComparing(Card::suit);
+        Collections.sort(deck, sortingAlgorithm);
+        Card.printDeck(deck, "Standard Deck Sorted by Rank, Suit", 13);
+
+        Collections.reverse(deck);
+        Card.printDeck(deck, "Sorted by Rank, Suit Reversed", 13);
+
+        List<Card> kings = new ArrayList<>(deck.subList(4, 8));
+        Card.printDeck(kings, "Kings in Deck", 1);
+
+        List<Card> tens = new ArrayList<>(deck.subList(16, 20));
+        Card.printDeck(tens, "Tens in Deck", 1);
+
+        int subListIndex = Collections.indexOfSubList(deck, tens);
+        System.out.println("Sublist Index for Tens = " + subListIndex);
+        System.out.println("Contains = " + deck.containsAll(tens));
+
+        boolean disjoint = Collections.disjoint(deck, tens);
+        System.out.println("Disjoint = " + disjoint);
+
+        boolean disjoint2 = Collections.disjoint(kings, tens);
+        System.out.println("Disjoint2 = " + disjoint2);
     }
 }

@@ -113,7 +113,7 @@ public class Main {
         System.out.println("Manual reverse: " + copied);
 
         copied = new ArrayList<>(deck.subList(0, 13));
-        Collections.reverse((copied));
+        Collections.reverse(copied);
         System.out.println("Using reverse: " + copied);
     }
 }
